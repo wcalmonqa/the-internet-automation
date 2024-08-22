@@ -1,29 +1,27 @@
-import { type Locator, type Page, expect } from "@playwright/test";
-import CommonActions from "../utils/CommonActions";
+import { type Locator, type Page } from "@playwright/test";
 
 export default class LoginPage{
     readonly page:Page;
-    readonly actions;
-    readonly usernameField:string;
-    readonly passwordField:string;
-    readonly loginButton:string;
-
+    readonly usernameField:Locator;
+    readonly passwordField:Locator;
+    readonly loginButton:Locator;
+    readonly logoutSuccessMessage:Locator;
 
     constructor(page : Page){
         this.page = page;
-        this.actions = new CommonActions(page);
-        this.usernameField = '#username';
-        this.passwordField = '#password';
-        this.loginButton = 'button[type="submit"]';
+        this.usernameField = this.page.locator('#username');
+        this.passwordField = this.page.locator('#password');
+        this.loginButton = this.page.getByRole('button', {name: 'Login'});
+        this.logoutSuccessMessage = this.page.locator('.flash.success');
     }
 
     async navigate (){
-        await this.actions.navigate('https://the-internet.herokuapp.com/login');
+        await this.page.goto('https://the-internet.herokuapp.com/login');
     }
 
     async login(username:string, password:string){
-        await this.actions.fill(this.usernameField, username);
-        await this.actions.fill(this.passwordField, password);
-        await this.actions.click(this.loginButton);
+        await this.usernameField.fill(username);
+        await this.passwordField.fill(password);
+        await this.loginButton.click();
     }
 }

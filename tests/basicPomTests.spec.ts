@@ -26,8 +26,9 @@ test.describe('Login Tests', () => {
     test.afterEach(async ({page}) => {
         await page.close();
     })
-    test('Logging in with valid credentials - CommonActions', async ({page}) => {
+    test('Logging in with valid credentials', async ({page}) => {
         await pm.loginPage.login('tomsmith', 'SuperSecretPassword!');
-        await expect(page.locator('#flash')).toBeVisible();
+        await expect(pm.securePage.loginSuccessMessage).toBeVisible();
+        await expect(pm.securePage.loginSuccessMessage).toContainText(' You logged into a secure area! ');
     })
 })
