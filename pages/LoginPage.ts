@@ -6,6 +6,7 @@ export default class LoginPage{
     readonly passwordField:Locator;
     readonly loginButton:Locator;
     readonly logoutSuccessMessage:Locator;
+    readonly loginErrorMessage:Locator;
 
     constructor(page : Page){
         this.page = page;
@@ -13,6 +14,7 @@ export default class LoginPage{
         this.passwordField = this.page.locator('#password');
         this.loginButton = this.page.getByRole('button', {name: 'Login'});
         this.logoutSuccessMessage = this.page.locator('.flash.success');
+        this.loginErrorMessage = this.page.locator('.flash.error');
     }
 
     async navigate (){
@@ -24,4 +26,6 @@ export default class LoginPage{
         await this.passwordField.fill(password);
         await this.loginButton.click();
     }
+
+    
 }
