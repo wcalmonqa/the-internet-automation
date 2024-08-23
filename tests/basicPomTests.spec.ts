@@ -1,7 +1,7 @@
 import {test, expect} from "@playwright/test"
 import PomManager from "../pages/PomManager"
 
-let pm;
+let pm:PomManager;
 
 test.describe('Login Tests', () => {
     test.beforeEach(async ({page}) => {
